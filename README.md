@@ -7,21 +7,21 @@ Code for the Interspeech 2026 paper *Scaling Few-Shot Spoken Word Classification
 ## Repo structure
 
 ```
-recordings_used/          # the episode recordings from our paper's GeMCL run, kept for reference
+recordings_used/
   episode_0/
     train_links.csv
     test_links.csv
   episode_1/ ... episode_9/
 
-meta_splits/              # meta-train and meta-test word class splits used in the paper
+meta_splits/
   train_5_shots_test_5_shots/
     en/
-      meta_train_classes.txt   # words used for meta-training (8915 words)
-      meta_test_classes.txt    # words used for meta-testing (3821 words)
-      meta_data_classes.txt    # split metadata: random seed, total/train/test class counts
+      meta_train_classes.txt
+      meta_test_classes.txt
+      meta_data_classes.txt
 
 src/
-  gemcl/                  # GeMCL model and training/testing scripts
+  gemcl/
     model/
       gemcl.py
       encoder.py
@@ -29,13 +29,35 @@ src/
     utils.py
     single_lang_meta_train.py
     single_lang_meta_test.py
-  hubert/                 # HuBERT baseline fine-tuning scripts
+  hubert/
     finetune.py
     finetune_config.yaml
+    run_baselines.py
     data_module_with_val.py
     hubert_pretrain_model.py
     processing_utils.py
 ```
+
+### File descriptions
+
+| File | Description |
+|---|---|
+| `src/gemcl/model/gemcl.py` | GeMCL model: Normal-Gamma generative classifier with meta-training forward pass and continual learning inference (`learn_class_statistics`, `test_forward`) |
+| `src/gemcl/model/encoder.py` | Wav2Vec2-inspired transformer encoder (12 layers, 12 heads) that takes MFCCs as input and produces embeddings |
+| `src/gemcl/meta_dataset.py` | `IterableDataset` that streams N-way K-shot episodes sampled from MSWC audio files |
+| `src/gemcl/utils.py` | MFCC preparation, meta-split generation, episode file writing, and timing/reporting utilities |
+| `src/gemcl/single_lang_meta_train.py` | Meta-trains GeMCL on 25-way-5-shot episodes for 5000 steps |
+| `src/gemcl/single_lang_meta_test.py` | Continual learning evaluation: sequentially learns 25→1000 classes across 10 episodes and records per-class accuracy at each step |
+| `src/hubert/finetune.py` | Fine-tunes HuBERT for a single (seed, num_classes) combination; saves the best checkpoint and per-word test results |
+| `src/hubert/run_baselines.py` | Orchestrates all 400 baseline runs (10 seeds × 40 class counts) for a given variant (`full_ft` or `ch`) |
+| `src/hubert/data_module_with_val.py` | PyTorch Lightning `DataModule`: loads MSWC audio, applies k-shot sampling, and scrounges a validation set from unused training recordings |
+| `src/hubert/hubert_pretrain_model.py` | PyTorch Lightning `LightningModule` wrapping HuBERT for sequence classification, with accuracy and F1 logging |
+| `src/hubert/processing_utils.py` | Utilities for reading episode CSVs and selecting the first N words from a training episode |
+| `src/hubert/finetune_config.yaml` | Default hyperparameters for `finetune.py` |
+| `meta_splits/.../meta_train_classes.txt` | The 8915 MSWC words reserved for meta-training |
+| `meta_splits/.../meta_test_classes.txt` | The 3821 MSWC words reserved for meta-testing |
+| `meta_splits/.../meta_data_classes.txt` | Split metadata: random seed used and class counts |
+| `recordings_used/episode_N/{train,test}_links.csv` | The exact MSWC recordings used in our paper's GeMCL meta-test run, kept for reference |
 
 ---
 
