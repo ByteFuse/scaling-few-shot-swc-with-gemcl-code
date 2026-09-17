@@ -42,14 +42,14 @@ src/
 
 | File | Description |
 |---|---|
-| `src/gemcl/model/gemcl.py` | GeMCL model: Normal-Gamma generative classifier with meta-training forward pass and continual learning inference (`learn_class_statistics`, `test_forward`) |
-| `src/gemcl/model/encoder.py` | Wav2Vec2-inspired transformer encoder (12 layers, 12 heads) that takes MFCCs as input and produces embeddings |
+| `src/gemcl/model/gemcl.py` | GeMCL model|
+| `src/gemcl/model/encoder.py` | Wav2Vec2-inspired transformer encoder that takes MFCCs as input and produces embeddings |
 | `src/gemcl/meta_dataset.py` | `IterableDataset` that streams N-way K-shot episodes sampled from MSWC audio files |
 | `src/gemcl/utils.py` | MFCC preparation, meta-split generation, episode file writing, and timing/reporting utilities |
 | `src/gemcl/single_lang_meta_train.py` | Meta-trains GeMCL on 25-way-5-shot episodes for 5000 steps |
 | `src/gemcl/single_lang_meta_test.py` | Continual learning evaluation: sequentially learns 25→1000 classes across 10 episodes and records per-class accuracy at each step |
 | `src/hubert/finetune.py` | Fine-tunes HuBERT for a single (seed, num_classes) combination; saves the best checkpoint and per-word test results |
-| `src/hubert/run_baselines.py` | Orchestrates all 400 baseline runs (10 seeds × 40 class counts) for a given variant (`full_ft` or `ch`) |
+| `src/hubert/run_baselines.py` | Or all 400 baseline runs (10 seeds × 40 class counts) for a given variant (`full_ft` or `ch`) |
 | `src/hubert/data_module_with_val.py` | PyTorch Lightning `DataModule`: loads MSWC audio, applies k-shot sampling, and scrounges a validation set from unused training recordings |
 | `src/hubert/hubert_pretrain_model.py` | PyTorch Lightning `LightningModule` wrapping HuBERT for sequence classification, with accuracy and F1 logging |
 | `src/hubert/processing_utils.py` | Utilities for reading episode CSVs and selecting the first N words from a training episode |
