@@ -51,7 +51,7 @@ def create_parser():
     
 
     # Most NB
-    parser.add_argument('--config_path', type=str, default='classification/finetune_config.yaml', help='Relative path to config')
+    parser.add_argument('--config_path', type=str, default='finetune_config.yaml', help='Relative path to config')
 
     
     return parser
