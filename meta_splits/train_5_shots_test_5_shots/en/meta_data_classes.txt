@@ -1,0 +1,4 @@
+The random seed used for splitting: 42
+Total valid classes for language en: 12736
+Meta-train classes for language en: 8915
+Meta-test classes for language en: 3821

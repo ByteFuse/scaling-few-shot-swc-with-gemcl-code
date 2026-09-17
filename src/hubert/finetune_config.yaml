@@ -1,0 +1,25 @@
+seed_everything: 42
+
+batch_size: 32
+learning_rate: 1.0e-4
+max_epochs: 20
+num_workers: 15 # temp
+freeze_feature_encoder: False
+freeze_base_model: False
+patience: 200
+    
+# Audio processing parameters
+sample_rate: 16000
+max_audio_length: null #SAMPLE_RATE * 1  # 1 second max
+k_shot_test: 5
+k_shot_train: 5
+k_shot_val: 5
+max_classes: 1000
+
+specific_words_relpath: 'meta_splits/train_5_shots_test_5_shots/en/meta_test_classes.txt'
+train_csv_relpath: 'splits/en/en_train.csv'
+val_csv_relpath: 'splits/en/en_test.csv'
+audio_base_relpath: "data/macroset/en/clips"
+
+experiment_name: 'default'
+experiment_stage: 'testing'
