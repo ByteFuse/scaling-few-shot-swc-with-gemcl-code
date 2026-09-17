@@ -130,3 +130,16 @@ Test results are saved to `classification/experiment_{name}/{stage}/{experiment_
 ## Logging
 
 Training metrics are logged to the terminal. You can plug in your own logger (e.g. W&B, TensorBoard) if you want experiment tracking.
+
+---
+
+## Citation
+
+```bibtex
+@inproceedings{beyers2026scaling,
+  title={Scaling few-shot spoken classification with generative meta-continual learning},
+  author={Beyers, Louise and Ziki, Batsirayi Mupamhi and van der Merwe, Ruan},
+  booktitle={Proceedings of Interspeech 2026},
+  year={2026}
+}
+```
