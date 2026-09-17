@@ -41,7 +41,7 @@ src/
 
 ## Data setup
 
-Download the English portion of the [Multilingual Spoken Words Corpus (MSWC)](https://mlcommons.org/datasets/multilingual-spoken-words-corpus/) and organise it as follows relative to the repo root:
+Download the English portion of the [Multilingual Spoken Words Corpus (MSWC)](https://huggingface.co/datasets/MLCommons/ml_spoken_words) and organise it as follows relative to the repo root:
 
 ```
 data/
